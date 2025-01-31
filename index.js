@@ -35,7 +35,13 @@ app.get("/api/:strDate" , function(req, res) {
   const {strDate} = req.params;
   console.log(strDate);
   
-  let date = new Date(strDate);
+  let date 
+  if (/^\d+$/.test(strDate)) {
+    let numDate = Number(strDate);
+    date = new Date(numDate)
+  } else {
+    date = new Date(strDate);
+  }
   if (date.toString() !== "Invalid Date"){
   } else if (!strDate) {
     date = new Date();
