@@ -24,6 +24,23 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/:strDate" , function(req, res) {
+  const {strDate} = req.params;
+  console.log(strDate);
+  
+  let date = new Date(strDate);
+  if (date.toString() !== "Invalid Date"){
+  } else if (strDate === "") {
+    date = new Date();
+  } else {
+    res.json({error: "Invalid Date"})
+  }
+  // let date = new Date();
+  let gmtDate = date.toUTCString();
+  let epochDate = date.getTime();
+  res.json({"unix": epochDate, "utc": gmtDate});
+});
+
 
 
 // Listen on port set in environment variable or default to 3000
